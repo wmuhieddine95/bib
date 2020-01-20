@@ -43,7 +43,9 @@ Create a connection between [maitresrestaurateurs.fr](https://www.maitresrestaur
 ### Stack
 
 ```
-Node.js + React + CSS Design Framework (bootstrap, foundation, mdl...) + ES6 [+ docker + redis ...]
+Node.js + React + ES6
++ CSS Design Framework (bootstrap, foundation, mdl...)
+[+ docker + redis ...]
 ```
 
 ## 👩‍💻 Just tell me what to do

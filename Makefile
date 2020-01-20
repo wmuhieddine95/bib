@@ -1,8 +1,17 @@
+.PHONY: slides
+
+deploy: ## build and deploy reveal slides
+	reveal-md slides/WORKSHOP.md --css slides/reveal.css --template slides/reveal.html --static dist
+	now dist --prod
+
 readme: ## generate the README file TOC
 	doctoc README.md --github
 
 sandbox-server: ## sandbox for server-side dev purpose
 	./node_modules/.bin/nodemon server/sandbox.js
+
+slides: ## start reveal on localhost
+	reveal-md slides/WORKSHOP.md --css slides/reveal.css --template slides/reveal.html -w
 
 help: ## This help dialog.
 	@IFS=$$'\n' ; \
