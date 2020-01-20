@@ -14,16 +14,17 @@
   - [Stack](#stack)
 - [👩‍💻 Just tell me what to do](#%E2%80%8D-just-tell-me-what-to-do)
 - [🏃‍♀️ Example of Steps to do](#%E2%80%8D-example-of-steps-to-do)
-  - [No code: Investigation first](#no-code-investigation-first)
+  - [Step 1. No code: Investigation first](#step-1-no-code-investigation-first)
     - [Michelin Restaurants](#michelin-restaurants)
     - [Maître-Restaurateur Restaurants](#ma%C3%AEtre-restaurateur-restaurants)
     - [The web application](#the-web-application)
-  - [Server-side with Node.js](#server-side-with-nodejs)
+  - [Step 2. Server-side with Node.js](#step-2-server-side-with-nodejs)
     - [require('michelin')](#requiremichelin)
     - [require('maitre')](#requiremaitre)
     - [require('bib')](#requirebib)
-  - [Client-side with React](#client-side-with-react)
+  - [Step 3. Client-side with React](#step-3-client-side-with-react)
 - [📦 Suggested node modules](#-suggested-node-modules)
+- [🍽 Scraping Example](#%F0%9F%8D%BD-scraping-example)
 - [Don't forget](#dont-forget)
 - [Licence](#licence)
 
@@ -210,6 +211,63 @@ Next features could be:
 * [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 * [cheerio](https://github.com/cheeriojs/cheerio) - Fast, flexible, and lean implementation of core jQuery designed specifically for the server.
 * [nodemon](https://github.com/remy/nodemon) - Monitor for any changes in your node.js application and automatically restart the server - perfect for development
+
+## 🍽 Scraping Example
+
+[server/michelin.js](./server/michelin.js) contains a function to scrape a given Michelin restaurant url.
+
+To start the example, use the Makefile target or call with node cli:
+
+```sh
+❯ make sandbox-sever
+❯ ## node server/sandbox.js
+❯ ## ./node_modules/.bin/nodemon server/sandbox.js
+```
+
+
+```js
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+/**
+ * Parse webpage restaurant
+ * @param  {String} data - html response
+ * @return {Object} restaurant
+ */
+const parse = data => {
+  const $ = cheerio.load(data);
+  const name = $('.section-main h2.restaurant-details__heading--title').text();
+  const experience = $('#experience-section > ul > li:nth-child(2)').text();
+
+  return {name, experience};
+};
+
+/**
+ * Scrape a given restaurant url
+ * @param  {String}  url
+ * @return {Object} restaurant
+ */
+module.exports.scrapeRestaurant = async url => {
+  const response = await axios(url);
+  const {data, status} = response;
+
+  if (status >= 200 && status < 300) {
+    return parse(data);
+  }
+
+  console.error(status);
+
+  return null;
+};
+
+/**
+ * Get all France located Bib Gourmand restaurants
+ * @return {Array} restaurants
+ */
+module.exports.get = () => {
+  return [];
+};
+```
 
 ## Don't forget
 

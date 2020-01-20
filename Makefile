@@ -1,6 +1,9 @@
 readme: ## generate the README file TOC
 	doctoc README.md --github
 
+sandbox-server: ## sandbox for server-side dev purpose
+	./node_modules/.bin/nodemon server/sandbox.js
+
 help: ## This help dialog.
 	@IFS=$$'\n' ; \
   help_lines=(`fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##/:/'`); \
