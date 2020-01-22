@@ -10,8 +10,9 @@ const parse = data => {
   const $ = cheerio.load(data);
   const name = $('.section-main h2.restaurant-details__heading--title').text();
   const experience = $('#experience-section > ul > li:nth-child(2)').text();
+  const phone = $('body > main > div.restaurant-details > div.container > div > div.col-xl-8.col-lg-7 > section:nth-child(3) > div.row > div:nth-child(1) > div > div:nth-child(1) > div > div > a').attr('href')
 
-  return {name, experience};
+  return {name, experience, phone};
 };
 
 /**

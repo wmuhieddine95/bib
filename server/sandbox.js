@@ -6,9 +6,9 @@ async function sandbox (searchLink = 'https://guide.michelin.com/fr/fr/centre-va
     console.log(`🕵️‍♀️  browsing ${searchLink} source`);
 
     const restaurant = await michelin.scrapeRestaurant(searchLink);
-
     console.log(restaurant);
     console.log('done');
+
     process.exit(0);
   } catch (e) {
     console.error(e);
